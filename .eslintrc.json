@@ -6,6 +6,10 @@
     "eslint linebreak-style": [0, "error", "windows"],
     "class-methods-use-this": "off",
     "quotes": [2, "single", { "avoidEscape": true }],
-    "jsx-quotes": [2, "single", { "avoidEscape": true }]
+    "jsx-quotes": "off",
+    "react/prop-types": "off",
+    "object-curly-newline": "off",
+    "jsx-a11y/label-has-for": "off",
+    "no-undef": "off"
   }
 }
