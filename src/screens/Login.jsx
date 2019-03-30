@@ -1,21 +1,29 @@
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import FormField from '../components/FormField';
 import formFields from './forms/loginFormFields';
 import '../styles/Login.css';
 import { BASE_URL, BASE_URL_USER_API, USER_LOGIN_API } from '../static/Urls';
+import { authorizeUserAndPush } from '../actions';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.onLoginSubmitted = this.onLoginSubmitted.bind(this);
+  }
+
   async onLoginSubmitted(values) {
     try {
       const res = await axios.post(BASE_URL + BASE_URL_USER_API + USER_LOGIN_API, values);
-      console.log(res.data);
+      const { history, authorizeUserAndPush } = this.props;
       if (localStorage) {
         if (res.data.token && res.data.type === 'Bearer') {
-          localStorage.setItem('token', `Bearer ${res.token}`);
+          await localStorage.setItem('token', `Bearer ${res.data.token}`);
+          authorizeUserAndPush(history);
         } else {
           window.alert(res.message);
         }
@@ -60,6 +68,12 @@ class Login extends Component {
   }
 }
 
+// eslint-disable-next-line no-class-assign
+Login = connect(
+  null,
+  { authorizeUserAndPush },
+)(Login);
+
 export default reduxForm({
   form: 'loginForm',
-})(Login);
+})(withRouter(Login));

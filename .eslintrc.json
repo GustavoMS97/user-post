@@ -10,6 +10,11 @@
     "react/prop-types": "off",
     "object-curly-newline": "off",
     "jsx-a11y/label-has-for": "off",
-    "no-undef": "off"
+    "no-undef": "off",
+    "import/prefer-default-export": "off",
+    "no-shadow": "off",
+    "arrow-parens": "off",
+    "react/jsx-indent": "off",
+    "indent": "off"
   }
 }

@@ -18,7 +18,7 @@ const Routes = () => (
         {/* HOME */}
         <Route path='/home' exact component={() => <h1>Olá, veja os usuarios e seus posts</h1>} />
         {/* POSTS */}
-        <Route path='/posts' exact component={() => <h1>Estes são os posts do usuario XYZ</h1>} />
+        <Route path='/posts' exact component={() => <h1>Estes são os meus posts</h1>} />
       </Switch>
     </div>
   </BrowserRouter>

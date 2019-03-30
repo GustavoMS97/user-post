@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { removeToken } from '../utils/tokenUtils';
 
 const styles = {
   headerContainer: {
     paddingLeft: 20,
     paddingRight: 20,
+    border: '1px lightblue solid',
   },
 };
 
 class Header extends Component {
   renderContent() {
-    return [
-      <li key='1'>
-        <a href='/register' >Sign Up</a>
-      </li>,
-      <li key='2'>
-        <a href='/login' >Sign in</a>
-      </li>,
-    ];
+    const { auth } = this.props;
+    return auth
+      ? [
+          <li key='1'>
+            <Link to='/posts'>My Profile</Link>
+          </li>,
+          <li key='2'>
+            <a onClick={() => removeToken()} href='/'>
+              logout
+            </a>
+          </li>,
+        ]
+      : [
+          <li key='3'>
+            <a href='/register'>Sign Up</a>
+          </li>,
+          <li key='4'>
+            <a href='/login'>Sign in</a>
+          </li>,
+        ];
   }
 
   render() {
@@ -25,7 +40,7 @@ class Header extends Component {
     return (
       <nav>
         <div className='nav-wrapper blue' style={headerContainer}>
-          <Link to='/' className='brand-logo left'>
+          <Link to={this.props.auth ? '/home' : '/'} className='brand-logo left'>
             Twitter-like App
           </Link>
           <ul className='right'>{this.renderContent()}</ul>
@@ -35,4 +50,6 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = ({ auth }) => ({ auth });
+
+export default connect(mapStateToProps)(Header);
