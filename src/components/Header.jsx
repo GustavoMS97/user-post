@@ -20,7 +20,7 @@ class Header extends Component {
             <Link to='/posts'>My Profile</Link>
           </li>,
           <li key='2'>
-            <a onClick={() => removeToken()} href='/'>
+            <a onClick={async () => await removeToken()} href='/'>
               logout
             </a>
           </li>,
@@ -40,7 +40,10 @@ class Header extends Component {
     return (
       <nav>
         <div className='nav-wrapper blue' style={headerContainer}>
-          <Link to={this.props.auth ? '/home' : '/'} className='brand-logo left'>
+          <Link
+            to={this.props.auth ? '/home' : '/'}
+            className='brand-logo left'
+          >
             Twitter-like App
           </Link>
           <ul className='right'>{this.renderContent()}</ul>

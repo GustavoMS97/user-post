@@ -1,6 +1,6 @@
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 800px) {
   .form-width {
-    min-width: 99%;
+    min-width: 100%;
   }
 }
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AUTHORIZE_USER } from './types';
-import { BASE_URL, BASE_URL_USER_API, USER_SELF_API } from '../static/Urls';
+import { BASE_URL, BASE_URL_USER_API, USER_SELF_API } from '../config/Urls';
 import { returnToken } from '../utils/tokenUtils';
 
 const authorizeUser = async (dispatch) => {
@@ -13,7 +13,7 @@ const authorizeUser = async (dispatch) => {
 
 export const authorizeUserAndPush = (history) => async (dispatch) => {
   try {
-    authorizeUser(dispatch);
+    await authorizeUser(dispatch);
     history.push('/home');
   } catch (error) {
     dispatch({ type: AUTHORIZE_USER, payload: null });
@@ -22,7 +22,7 @@ export const authorizeUserAndPush = (history) => async (dispatch) => {
 
 export const authorizeUserWithoutPush = () => async (dispatch) => {
   try {
-    authorizeUser(dispatch);
+    await authorizeUser(dispatch);
   } catch (error) {
     dispatch({ type: AUTHORIZE_USER, payload: null });
   }

@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import FormField from '../components/FormField';
 import formFields from './forms/loginFormFields';
 import '../styles/Login.css';
-import { BASE_URL, BASE_URL_USER_API, USER_LOGIN_API } from '../static/Urls';
+import { BASE_URL, BASE_URL_USER_API, USER_LOGIN_API } from '../config/Urls';
 import { authorizeUserAndPush } from '../actions';
 
 class Login extends Component {
@@ -18,7 +18,10 @@ class Login extends Component {
 
   async onLoginSubmitted(values) {
     try {
-      const res = await axios.post(BASE_URL + BASE_URL_USER_API + USER_LOGIN_API, values);
+      const res = await axios.post(
+        BASE_URL + BASE_URL_USER_API + USER_LOGIN_API,
+        values,
+      );
       const { history, authorizeUserAndPush } = this.props;
       if (localStorage) {
         if (res.data.token && res.data.type === 'Bearer') {
@@ -30,13 +33,21 @@ class Login extends Component {
       }
     } catch (error) {
       console.log(error);
-      window.alert('Ops! There was a problem with your login request.');
+      window.alert(
+        `Ops! There was a problem with your login request.\n${error}`,
+      );
     }
   }
 
   renderFields() {
     return formFields.map(({ name, label, type }) => (
-      <Field key={name} name={name} label={label} type={type} component={FormField} />
+      <Field
+        key={name}
+        name={name}
+        label={label}
+        type={type}
+        component={FormField}
+      />
     ));
   }
 
@@ -46,12 +57,21 @@ class Login extends Component {
       <div className='container'>
         <div
           className='row'
-          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+          }}
         >
           <form
             onSubmit={handleSubmit(this.onLoginSubmitted)}
             className='col s6 z-depth-3 form-width form'
-            style={{ marginLeft: 'unset', border: '2px solid #2196F3', marginTop: '10%' }}
+            style={{
+              marginLeft: 'unset',
+              border: '2px solid #2196F3',
+              marginTop: '10%',
+            }}
           >
             {this.renderFields()}
             <Link to='/' className='red btn-flat white-text'>
