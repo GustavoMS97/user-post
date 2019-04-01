@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './Header';
 import Login from '../screens/Login';
+import Register from '../screens/Register';
 import Landing from '../screens/Landing';
 import Home from '../screens/Home';
 import Posts from '../screens/Posts';
@@ -43,11 +44,7 @@ class Routes extends Component {
             {/* LANDING PAGE */}
             <Route path='/' exact component={Landing} />
             {/* REGISTER */}
-            <Route
-              path='/register'
-              exact
-              component={() => <h1>Cadastre-se</h1>}
-            />
+            <Route path='/register' exact component={Register} />
             {/* LOGIN */}
             <Route path='/login' exact component={Login} />
             {/* HOME */}
